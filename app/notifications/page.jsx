@@ -172,6 +172,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { AuthContext } from "@/context/AuthContext";
 import axiosInstance from "@/utils/axiosInstance";
 import Link from "next/link";
 import { 
@@ -189,6 +191,7 @@ export default function NotificationsPage() {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("all"); // 'all' | 'unread'
+const { unreadCount, setUnreadCount } = useContext(AuthContext);
 
   // Fetch all notifications
   const fetchNotifications = async () => {
@@ -207,6 +210,7 @@ export default function NotificationsPage() {
     try {
       await axiosInstance.put("/notifications/read");
       setNotifications(prev => prev.map(n => ({ ...n, read: true })));
+      setUnreadCount(0);
     } catch (err) {
       console.error("Failed to mark all read:", err);
     }
@@ -216,6 +220,7 @@ export default function NotificationsPage() {
     try {
       await axiosInstance.put(`/notifications/${id}/read`);
       setNotifications(prev => prev.map(n => n._id === id ? { ...n, read: true } : n));
+    setUnreadCount(prev => Math.max(prev - 1, 0));
     } catch (err) {
       console.error("Failed to mark read:", err);
     }
@@ -225,6 +230,9 @@ export default function NotificationsPage() {
     try {
       await axiosInstance.delete(`/notifications/${id}`);
       setNotifications(prev => prev.filter(n => n._id !== id));
+      if (!target.read) {
+      setUnreadCount(prev => Math.max(prev - 1, 0));
+    }
     } catch (err) {
       console.error("Failed to delete:", err);
     }
@@ -235,6 +243,7 @@ export default function NotificationsPage() {
     try {
       await axiosInstance.delete("/notifications");
       setNotifications([]);
+      setUnreadCount(0);
     } catch (err) {
       console.error("Failed to delete all:", err);
     }

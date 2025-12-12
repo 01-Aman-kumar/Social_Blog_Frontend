@@ -43,10 +43,10 @@ export default function Footer() {
             
             {/* Social Icons */}
             <div className="flex items-center gap-4 pt-2">
-              <SocialLink href="#" icon={<Twitter size={18} />} label="Twitter" />
+              {/* <SocialLink href="#" icon={<Twitter size={18} />} label="Twitter" /> */}
               <SocialLink href="https://github.com/01-Aman-kumar" icon={<Github size={18} />} label="GitHub" />
-              <SocialLink href="www.linkedin.com/in/aman-kumar-258650256" icon={<Linkedin size={18} />} label="LinkedIn" />
-              <SocialLink href="#" icon={<Instagram size={18} />} label="Instagram" />
+              <SocialLink href="https://www.linkedin.com/in/aman-kumar-258650256" icon={<Linkedin size={18} />} label="LinkedIn" />
+              {/* <SocialLink href="#" icon={<Instagram size={18} />} label="Instagram" /> */}
             </div>
           </div>
 

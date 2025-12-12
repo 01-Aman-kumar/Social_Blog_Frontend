@@ -9,6 +9,8 @@ export const AuthContext = createContext();
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [unreadCount, setUnreadCount] = useState(0);
+
 
   // Load User on Refresh
   useEffect(() => {
@@ -28,7 +30,7 @@ export default function AuthProvider({ children }) {
   const logout = () => setUser(null);
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, logout, unreadCount, setUnreadCount }}>
       {children}
     </AuthContext.Provider>
   );

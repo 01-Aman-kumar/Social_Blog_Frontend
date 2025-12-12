@@ -332,6 +332,7 @@ import axiosInstance from "@/utils/axiosInstance";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { useRouter } from "next/navigation";
 import { ImagePlus, PenTool, X, Save, Send, Sparkles, Hash, LayoutTemplate, ChevronDown, AlignLeft, Type } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function CreatePostPage() {
   const router = useRouter();
@@ -401,7 +402,7 @@ export default function CreatePostPage() {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      alert("Post created successfully!");
+      toast.success("Post created successfully!");
       router.push("/");
     } catch (err) {
       console.error(err);
@@ -413,7 +414,7 @@ export default function CreatePostPage() {
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen flex flex-col md:flex-row text-white font-sans bg-[#0f172a]">
+      <div className="min-h-screen flex flex-col md:flex-row text-white font-sans bg-slate-900">
         
         {/* --- LEFT SIDE: INFO BANNER --- */}
         <div className="hidden lg:flex lg:w-[30%] flex-col justify-between p-10 relative border-r border-slate-800 bg-[#0b0f14]/50 overflow-hidden">
@@ -438,7 +439,7 @@ export default function CreatePostPage() {
               </p>
 
               <div className="space-y-6">
-                 <div className="flex items-start gap-4 p-5 rounded-xl bg-[#1e293b]/50 border border-slate-800 backdrop-blur-sm">
+                 <div className="flex items-start gap-4 p-5 rounded-xl bg-slate-800/50 border border-slate-800 backdrop-blur-sm">
                     <div className="bg-yellow-500/10 p-2 rounded-lg border border-yellow-500/20">
                        <Sparkles className="w-5 h-5 text-yellow-500" />
                     </div>
@@ -458,7 +459,7 @@ export default function CreatePostPage() {
         </div>
 
         {/* --- RIGHT SIDE: CREATE FORM --- */}
-        <div style={{ scrollbarWidth: "none", msOverflowStyle: "none" }} className="flex-1 p-4 md:p-8 lg:p-10 overflow-y-auto h-screen bg-[#0f172a]">
+        <div style={{ scrollbarWidth: "none", msOverflowStyle: "none" }} className="flex-1 p-4 md:p-8 lg:p-10 overflow-y-auto h-screen bg-slate-900">
            <div className="max-w-4xl mx-auto pb-20">
              
              {/* Header */}
@@ -476,7 +477,7 @@ export default function CreatePostPage() {
              <form onSubmit={submit} className="space-y-6">
                 
                 {/* CARD 1: Basic Details */}
-                <div className="bg-[#1e293b] border border-slate-800 rounded-2xl p-6 space-y-6 shadow-sm">
+                <div className="bg-slate-800 border border-slate-800 rounded-2xl p-6 space-y-6 shadow-sm">
                    <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-2 border-b border-slate-800 pb-2">
                       <LayoutTemplate size={16} /> Basic Information
                    </h3>
@@ -490,7 +491,7 @@ export default function CreatePostPage() {
                            placeholder="e.g. The Future of Web Development"
                            value={form.title}
                            onChange={(e) => setForm({ ...form, title: e.target.value })}
-                           className="w-full bg-[#0f172a] border border-slate-700 rounded-xl py-3 pl-12 pr-4 text-white placeholder:text-slate-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all"
+                           className="w-full bg-slate-900 border border-slate-700 rounded-xl py-3 pl-12 pr-4 text-white placeholder:text-slate-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all"
                            required
                          />
                       </div>
@@ -502,7 +503,7 @@ export default function CreatePostPage() {
                          <label className="text-sm font-medium text-slate-300">Category <span className="text-red-400">*</span></label>
                          <div className="relative">
                             <select
-                              className="w-full appearance-none bg-[#0f172a] border border-slate-700 rounded-xl px-4 py-3 pr-10 text-slate-200 focus:border-blue-500 outline-none transition-all cursor-pointer"
+                              className="w-full appearance-none bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 pr-10 text-slate-200 focus:border-blue-500 outline-none transition-all cursor-pointer"
                               value={form.category}
                               onChange={(e) => setForm({ ...form, category: e.target.value })}
                               required
@@ -524,7 +525,7 @@ export default function CreatePostPage() {
                               placeholder="react, coding, tech"
                               value={form.tags}
                               onChange={(e) => setForm({ ...form, tags: e.target.value })}
-                              className="w-full bg-[#0f172a] border border-slate-700 rounded-xl py-3 pl-12 pr-4 text-white placeholder:text-slate-600 focus:border-blue-500 outline-none transition-all"
+                              className="w-full bg-slate-900 border border-slate-700 rounded-xl py-3 pl-12 pr-4 text-white placeholder:text-slate-600 focus:border-blue-500 outline-none transition-all"
                             />
                          </div>
                       </div>
@@ -532,7 +533,7 @@ export default function CreatePostPage() {
                 </div>
 
                 {/* CARD 2: Media */}
-                <div className="bg-[#1e293b] border border-slate-800 rounded-2xl p-6 space-y-4 shadow-sm">
+                <div className="bg-slate-800 border border-slate-800 rounded-2xl p-6 space-y-4 shadow-sm">
                    <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-2 border-b border-slate-800 pb-2">
                       <ImagePlus size={16} /> Media
                    </h3>
@@ -563,7 +564,7 @@ export default function CreatePostPage() {
                 </div>
 
                 {/* CARD 3: Content Editor */}
-                <div className="bg-[#1e293b] border border-slate-800 rounded-2xl p-6 space-y-4 shadow-sm">
+                <div className="bg-slate-800 border border-slate-800 rounded-2xl p-6 space-y-4 shadow-sm">
                    <div className="flex items-center justify-between border-b border-slate-800 pb-2">
                       <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
                          <AlignLeft size={16} /> Content
@@ -577,7 +578,7 @@ export default function CreatePostPage() {
                      value={form.content}
                      onChange={(e) => setForm({ ...form, content: e.target.value })}
                      rows={15}
-                     className="w-full px-5 py-4 rounded-xl border border-slate-700 bg-[#0f172a] focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all resize-none text-slate-200 leading-relaxed text-base placeholder:text-slate-600"
+                     className="w-full px-5 py-4 rounded-xl border border-slate-700 bg-slate-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all resize-none text-slate-200 leading-relaxed text-base placeholder:text-slate-600"
                      required
                    />
                 </div>
@@ -586,7 +587,7 @@ export default function CreatePostPage() {
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-slate-800">
                    
                    {/* Status Toggles */}
-                   <div className="flex bg-[#1e293b] p-1 rounded-lg border border-slate-700">
+                   <div className="flex bg-slate-800 p-1 rounded-lg border border-slate-700">
                      <button
                        type="button"
                        onClick={() => setForm({ ...form, status: "draft" })}

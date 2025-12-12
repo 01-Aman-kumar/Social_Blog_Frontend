@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { Menu, X, Search, Bell, LogOut, Sun, Moon } from "lucide-react";
 
 export default function Navbar() {
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout,unreadCount, setUnreadCount } = useContext(AuthContext);
   const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -17,7 +17,7 @@ export default function Navbar() {
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggest, setShowSuggest] = useState(false);
-  const [unreadCount, setUnreadCount] = useState(0);
+  // const [unreadCount, setUnreadCount] = useState(0);
 
   const searchRef = useRef(null);
   const timerRef = useRef(null); // 🔥 FIXED: Use ref for timer so it persists
