@@ -143,6 +143,7 @@ import { AuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Mail, Lock, ArrowRight, PenTool } from "lucide-react"; // Added icons for polish
+import toast from "react-hot-toast";
 
 export default function Login() {
   const router = useRouter();
@@ -159,7 +160,7 @@ export default function Login() {
       login(res.data.user);
       router.push("/");
     } catch (error) {
-      alert(error.response?.data?.message || "Login failed");
+      toast.error(error.response?.data?.message || "Login failed");
     } finally {
       setLoading(false);
     }

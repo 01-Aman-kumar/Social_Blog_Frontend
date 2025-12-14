@@ -8,6 +8,7 @@ import CommentList from "@/components/CommentList";
 import Swal from "sweetalert2";
 import Link from "next/link";
 import { ThumbsUp, Bookmark, CheckCircle2, ArrowLeft } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function PostPage() {
   const { id } = useParams();
@@ -92,14 +93,14 @@ export default function PostPage() {
     } catch (err) {
       setIsFollowing(previousIsFollowing);
       setFollowersCount((prev) => (previousIsFollowing ? prev + 1 : prev - 1));
-      alert("Something went wrong.");
+      toast.error("Something went wrong.");
     } finally {
       setFollowLoading(false);
     }
   };
 
   const toggleLike = async () => {
-    if (!currentUser) return alert("Login required");
+    if (!currentUser) return toast.error("Login required");
     try {
       await axiosInstance.post(`/posts/${post._id}/like`);
       const res = await axiosInstance.get(`/posts/id/${id}`);
@@ -108,7 +109,7 @@ export default function PostPage() {
   };
 
   const toggleBookmark = async () => {
-    if (!currentUser) return alert("Login required");
+    if (!currentUser) return toast.error("Login required");
     try {
       await axiosInstance.post(`/posts/${post._id}/bookmark`);
       const res = await axiosInstance.get(`/posts/id/${id}`);
@@ -186,7 +187,7 @@ const deletePost = async () => {
       await axiosInstance.post("/comments", { postId: post._id, text: commentText });
       setCommentText("");
       setRefreshComments((prev) => prev + 1);
-    } catch (err) { alert("Login required"); }
+    } catch (err) { toast.error("Login required"); }
   };
 
   // Reusable Component for Related Post Item

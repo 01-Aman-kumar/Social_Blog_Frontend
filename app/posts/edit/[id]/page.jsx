@@ -208,6 +208,7 @@ import {
   X,
   Loader2
 } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function EditPostPage() {
   const router = useRouter();
@@ -246,7 +247,7 @@ export default function EditPostPage() {
 
       // Only owner or admin can edit
       if (post.author?._id !== user?._id && user?.role !== "admin") {
-        alert("You are not allowed to edit this post!");
+        toast.error("You are not allowed to edit this post!");
         router.push("/");
         return;
       }
@@ -308,11 +309,11 @@ export default function EditPostPage() {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      alert("Post updated successfully!");
+      toast.success("Post updated successfully!");
       router.push(`/posts/id/${id}`);
     } catch (error) {
       console.error("Update failed:", error);
-      alert(error.response?.data?.message || "Failed to update post");
+      toast.error(error.response?.data?.message || "Failed to update post");
     } finally {
       setSaving(false);
     }

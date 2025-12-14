@@ -135,6 +135,7 @@ import axiosInstance from "@/utils/axiosInstance";
 import { useContext, useState } from "react";
 import { AuthContext } from "@/context/AuthContext";
 import { Heart, Bookmark, CheckCircle2 } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function PostCard({ post, variant = "compact" }) {
   const { user } = useContext(AuthContext) || {};
@@ -162,7 +163,7 @@ export default function PostCard({ post, variant = "compact" }) {
   const toggleLike = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!user) return alert("Login required");
+    if (!user) return toast.error("Login required");
 
     const isNowLiked = !liked;
     setLiked(isNowLiked);
@@ -181,7 +182,7 @@ export default function PostCard({ post, variant = "compact" }) {
   const toggleBookmark = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!user) return alert("Login required");
+    if (!user) return toast.error("Login required");
 
     setBookmarked(!bookmarked);
     try {

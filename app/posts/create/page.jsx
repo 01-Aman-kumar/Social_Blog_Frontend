@@ -384,7 +384,7 @@ export default function CreatePostPage() {
     e.preventDefault();
 
     if (!form.title || !form.content || !form.category) {
-      alert("Title, content and category are required!");
+      toast.error("Title, content and category are required!");
       return;
     }
 
@@ -406,7 +406,7 @@ export default function CreatePostPage() {
       router.push("/");
     } catch (err) {
       console.error(err);
-      alert(err.response?.data?.message || "Failed to create post");
+      toast.error(err.response?.data?.message || "Failed to create post");
     } finally {
       setSubmitting(false);
     }
